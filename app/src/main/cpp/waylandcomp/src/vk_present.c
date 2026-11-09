@@ -867,6 +867,11 @@ static int swap_init_locked(void) {
     VkSurfaceTransformFlagBitsKHR pretrans =
         (caps.supportedTransforms & VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR)
             ? VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR : caps.currentTransform;
+    droiddeck_log("gpu", "ROTDIAG swapchain: currentTransform=%d supportedTransforms=0x%x chosenPreTransform=%d "
+               "currentExtent=%ux%u imageExtent=%ux%u window=%dx%d minImages=%u",
+               (int)caps.currentTransform, (unsigned)caps.supportedTransforms, (int)pretrans,
+               caps.currentExtent.width, caps.currentExtent.height, g_extent.width, g_extent.height,
+               ANativeWindow_getWidth(g_window), ANativeWindow_getHeight(g_window), caps.minImageCount);
 
     VkSwapchainCreateInfoKHR sci = {
         .sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR, .surface = g_surface,
